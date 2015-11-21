@@ -66,14 +66,14 @@ $client = RdsClient::factory([
 ]);
 
 $result = $client->describeDBInstances([
-    'DBInstanceIdentifier' => 'ITMO544AravindDb',
+    'DBInstanceIdentifier' => 'ITMO544AravindDbReadOnly',
 ]);
 
  $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 #echo $endpoint;
 
 //echo "begin database";
-$link = mysqli_connect($endpoint,"aravind","password","ITMO544AravindDb") or die("Error " . mysqli_error($link));
+$link = mysqli_connect($endpoint,"aravind","password","ITMO544AravindDbReadOnly") or die("Error " . mysqli_error($link));
 
 /* check connection */
 if (mysqli_connect_errno()) {
