@@ -73,7 +73,7 @@ $result = $client->describeDBInstances([
 #echo $endpoint;
 
 //echo "begin database";
-$link = mysqli_connect($endpoint,"aravind","password","ITMO544AravindDbReadOnly") or die("Error " . mysqli_error($link));
+$link = mysqli_connect($endpoint,"aravind","password") or die("Error " . mysqli_error($link));
 
 /* check connection */
 if (mysqli_connect_errno()) {
