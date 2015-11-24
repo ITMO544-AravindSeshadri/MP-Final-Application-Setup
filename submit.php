@@ -8,6 +8,7 @@ session_start();
 echo $_POST['useremail'];
 $uploaddir = '/tmp/';
 $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
+$ftype=$_FILES['userfile']['type'];
 $filename=$_FILES['userfile']['name'];
 echo '<pre>';
 if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
@@ -58,6 +59,28 @@ $FinishedS3URL = "none";
 $jpegfilename = basename($_FILES['userfile']['name']);
 $state = 0;
 $DateTime = date("Y-m-d H:i:s");
+
+$srcimage = $uploaddir . $filename;
+#echo $srcimage;
+#echo $ftype;
+$img = new Imagick($srcimage);
+$img->thumbnailImage(160,160,true,true);
+$extension = pathinfo($filename, PATHINFO_EXTENSION);
+#echo $extension;
+$resimagename = uniqid("ResultImage");
+$resimage = "$resimagename." . $extension;
+#echo $resimage;
+$img->writeImage($uploaddir . $resimage);
+
+$result = $s3->putObject([
+    'ACL' => 'public-read',
+    'Bucket' => $bucket,
+    'Key' => $resimage,
+    'SourceFile' => $uploaddir . $resimage,
+    ]);
+$FinishedS3URL = $result['ObjectURL'];
+#echo $FinishedS3URL;
+
 $sql="INSERT INTO MP1 (uname,email,phoneforSMS,RawS3URL,FinishedS3URL,jpegfilename,state,DateTime) VALUES ('$uname','$email','$phoneforSMS','$RawS3URL','$FinishedS3URL','$jpegfilename',$state,'$DateTime')";
 if (!mysqli_query($link,$sql))
 {
