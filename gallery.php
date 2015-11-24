@@ -66,7 +66,7 @@ $client = RdsClient::factory([
 ]);
 
 $result = $client->describeDBInstances([
-    'DBInstanceIdentifier' => 'ITMO544AravindDb',
+    'DBInstanceIdentifier' => 'ITMO544AravindDbReadOnly',
 ]);
 
  $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
