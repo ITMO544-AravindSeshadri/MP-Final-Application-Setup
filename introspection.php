@@ -33,5 +33,5 @@ $result = $s3->putObject([
     'Key' => $fullbkfname,
     'SourceFile' => $dbbackupfile,
     ]);
-
+echo $result['ObjectURL'];
 ?>
