@@ -1,24 +1,16 @@
 <?php
 require 'vendor/autoload.php';
-#$s3 = new Aws\S3\S3Client([
-#    'version' => 'latest',
-#        'region'  => 'us-west-2'
-#]);
+$s3 = new Aws\S3\S3Client([
+    'version' => 'latest',
+        'region'  => 'us-west-2'
+]);
 
-#$dbbackup = uniqid("DatabaseBackup",false);
-#$result = $s3->createBucket([
-#    'ACL' => 'public-read',
-#    'Bucket' => $dbbackup,
-#]);
+$dbbackup = uniqid("databasebackup",false);
+$result = $s3->createBucket([
+    'ACL' => 'public-read',
+    'Bucket' => $dbbackup,
+]);
 
-#$result = $s3->putObject([
-#    'ACL' => 'public-read',
-#    'Bucket' => $dbbackup,
-#    'Key' => $filename,
-#    'SourceFile' => $uploadfile,
-#    ]);
-#$url=$result['ObjectURL'];
-#print_r($url);
 $rds = new Aws\Rds\RdsClient([
     'version' => 'latest',
     'region'  => 'us-west-2'
@@ -30,16 +22,16 @@ $result = $rds->describeDBInstances([
 echo $endpoint;
 $link = mysqli_connect($endpoint,"aravind","password","ITMO544AravindDb") or die("Error " . mysqli_error($link));
 $loc = '/tmp/';
-$dbbackupfile=$loc . uniqid('DbBackup') . '.' . 'sql';
+$bkfname = uniqid("DbBackup", false);
+$fullbkfname = $bkfname . '.' . 'sql';
+$dbbackupfile=$loc . $fullbkfname;
 echo $dbbackupfile;
 exec("mysqldump --user=aravind --password=password --host=$endpoint ITMO544AravindDb > $dbbackupfile");
+$result = $s3->putObject([
+    'ACL' => 'public-read',
+    'Bucket' => $dbbackup,
+    'Key' => $fullbkfname,
+    'SourceFile' => $dbbackupfile,
+    ]);
 
-#$sql = "SELECT * INTO OUTFILE '$dbbackupfile' FROM MP1";
-#mysql_select_db('ITMO544AravindDb');
-#mysql_query($sql, $link);
-#$link->close;
-
-
-
-#echo "Hi";
 ?>
