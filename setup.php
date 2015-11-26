@@ -3,8 +3,8 @@ $link = new mysqli("itmo544aravinddb.czw4txekmxpp.us-west-2.rds.amazonaws.com","
 echo "Successfully connected to Database..";
 $result=$link->query("CREATE TABLE MP1(
 ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-uname VARCHAR(20),
-email VARCHAR(20),
+uname VARCHAR(50),
+email VARCHAR(50),
 phoneforSMS VARCHAR(20),
 RawS3URL VARCHAR(256),
 FinishedS3URL VARCHAR(256),
