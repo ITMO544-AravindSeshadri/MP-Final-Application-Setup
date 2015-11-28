@@ -1,4 +1,5 @@
 <?php
+session_start();
 require 'vendor/autoload.php';
 $s3 = new Aws\S3\S3Client([
     'version' => 'latest',
@@ -34,5 +35,6 @@ $result = $s3->putObject([
     'SourceFile' => $dbbackupfile,
     ]);
 echo $result['ObjectURL'];
+session_destroy();
 header("location: gallery.php");
 ?>
