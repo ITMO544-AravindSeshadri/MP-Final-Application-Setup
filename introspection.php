@@ -34,4 +34,5 @@ $result = $s3->putObject([
     'SourceFile' => $dbbackupfile,
     ]);
 echo $result['ObjectURL'];
+header("location: gallery.php");
 ?>
