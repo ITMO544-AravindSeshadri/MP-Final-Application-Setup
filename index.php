@@ -7,8 +7,10 @@
 #MyForm
 {
 text-align:center;
-border-style: 2px outline;
+border-style:outline;
 background-color:#FFCBA4;
+margin-left:50px;
+margin-right:50px;
 }
 </style>
 </head>
