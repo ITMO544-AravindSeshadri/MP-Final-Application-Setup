@@ -27,6 +27,8 @@ Load Image: <input type="file" name="userfile"><br><br>
 <br>
 <br>
 <a href="introspection.php">Click here to take a backup of the databatase!</a>
+<br>
+<br>
 <form class="MyForm" enctype="multipart/form-data" action="gallery.php" method="POST">
 <br><br>Enter email of the Gallery to find: <input type="email" name="email"><br><br>
 <input type="submit" value="View Gallery" id="gal" /><br><br>
