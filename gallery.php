@@ -17,15 +17,12 @@
    
 
     /* For smartphones */
-    @media (max-width: 420px) {
+    @media (max-width: 360px) {
       .container {
-        width: 420px
+        width: 360px;
+	border-style:2px solid;
       }
     }
-.MyImage
-{
-border-style:inline;
-}
 
    </style>
 </head>
@@ -73,7 +70,7 @@ $link->real_query("SELECT * FROM MP1");
 $res = $link->use_result();
 #echo "Result set order...\n";
 while ($row = $res->fetch_assoc()) {
-    echo "<img class='MyImage' src =\" " . $row['RawS3URL'] . "\" />";
+    echo "<img src =\" " . $row['RawS3URL'] . "\" />";
 # echo $row['ID'] . "Email: " . $row['email'];
 }
 $link->close();
@@ -87,8 +84,8 @@ $link->real_query("SELECT * FROM MP1 where email='$sessionvar'");
 $res = $link->use_result();
 #echo "Result set order...\n";
 while ($row = $res->fetch_assoc()) {
-    echo "<img class='MyImage' src =\" " . $row['RawS3URL'] . "\" />";
-echo "<div class='MyImage'><img src =\" " . $row['FinishedS3URL'] . "\" /></div>";
+    echo "<img src =\" " . $row['RawS3URL'] . "\" />";
+echo "<div><img src =\" " . $row['FinishedS3URL'] . "\" /></div>";
 # echo $row['ID'] . "Email: " . $row['email'];
 }
 }
