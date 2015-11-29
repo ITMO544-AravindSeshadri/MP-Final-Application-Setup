@@ -62,7 +62,6 @@ if (mysqli_connect_errno()) {
 if(strlen($sessionvar)==0)
 {
 $link->real_query("SELECT * FROM MP1");
-#$link->real_query("SELECT * FROM MP1");
 $res = $link->use_result();
 #echo "Result set order...\n";
 while ($row = $res->fetch_assoc()) {
