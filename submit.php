@@ -20,6 +20,7 @@ echo 'Here is some more debugging info:';
 print_r($_FILES);
 print "</pre>";
 require 'vendor/autoload.php';
+
 $s3 = new Aws\S3\S3Client([
     'version' => 'latest',
         'region'  => 'us-west-2'
@@ -30,6 +31,7 @@ $result = $s3->createBucket([
     'ACL' => 'public-read',
     'Bucket' => $bucket,
 ]); 
+
 $result = $s3->putObject([
     'ACL' => 'public-read',
     'Bucket' => $bucket,
@@ -38,16 +40,19 @@ $result = $s3->putObject([
     ]);
 $url=$result['ObjectURL'];
 print_r($url);
+
 $rds = new Aws\Rds\RdsClient([
     'version' => 'latest',
     'region'  => 'us-west-2'
 ]);
+
 $result = $rds->describeDBInstances([
     'DBInstanceIdentifier' => 'ITMO544AravindDb',
 ]);
  $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 echo $endpoint;
 $link = mysqli_connect($endpoint,"aravind","password","ITMO544AravindDb") or die("Error " . mysqli_error($link));
+
 $uname = "Aravind";
 $email = $_POST['useremail'];
 $phoneforSMS = $_POST['phone'];
@@ -59,6 +64,7 @@ $DateTime = date("Y-m-d H:i:s");
 $srcimage = $uploaddir . $filename;
 #echo $srcimage;
 #echo $ftype;
+
 $img = new Imagick($srcimage);
 $img->thumbnailImage(160,160,true,true);
 $extension = pathinfo($filename, PATHINFO_EXTENSION);
@@ -67,6 +73,7 @@ $resimagename = uniqid("ResultImage");
 $resimage = "$resimagename." . $extension;
 #echo $resimage;
 $img->writeImage($uploaddir . $resimage);
+
 $result = $s3->putObject([
     'ACL' => 'public-read',
     'Bucket' => $bucket,
@@ -75,6 +82,7 @@ $result = $s3->putObject([
     ]);
 $FinishedS3URL = $result['ObjectURL'];
 #echo $FinishedS3URL;
+
 $Expiry = $s3->putBucketLifecycleConfiguration([
     'Bucket' => $bucket,
     'LifecycleConfiguration' => [
@@ -92,32 +100,39 @@ $Expiry = $s3->putBucketLifecycleConfiguration([
         ],
     ],
 ]);
+
 $sql="INSERT INTO MP1 (uname,email,phoneforSMS,RawS3URL,FinishedS3URL,jpegfilename,state,DateTime) VALUES ('$uname','$email','$phoneforSMS','$RawS3URL','$FinishedS3URL','$jpegfilename',$state,'$DateTime')";
 if (!mysqli_query($link,$sql))
 {
 die("Error: " . mysqli_error($link));
 }
+
 $mp2sns = new Aws\Sns\SnsClient([
     'version' => 'latest',
     'region'  => 'us-west-2'
 ]);
+
 $mp2arn = $mp2sns->createTopic([
 'Name' => 'aravindmp2',
 ]);
+
 $mp2sub = $mp2sns->subscribe([
 'Endpoint' => $email,
 'Protocol' => 'email',
 'TopicArn' => $mp2arn['TopicArn'],
 ]);
+
 $mp2setattr = $mp2sns->setTopicAttributes([
 'AttributeName' => 'DisplayName',
 'AttributeValue' => 'aravindmp2',
 'TopicArn' => $mp2arn['TopicArn'],
 ]);
+
 $mp2pub = $mp2sns->publish([
 'Message' => 'The image you had selected has been uploaded.',
 'TopicArn' => $mp2arn['TopicArn'],
 ]);
+
 header("location: gallery.php");
 echo "Record successfully inserted!";
 $link->real_query("SELECT * FROM MP1");
