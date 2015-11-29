@@ -81,6 +81,25 @@ $result = $s3->putObject([
 $FinishedS3URL = $result['ObjectURL'];
 #echo $FinishedS3URL;
 
+$Expiry = $s3->putBucketLifecycleConfiguration([
+    'Bucket' => $bucket,
+    'LifecycleConfiguration' => [
+        'Rules' => [ 
+            [
+                'Expiration' => [
+                    'Date' => '2016-01-02',
+                ],
+                              
+                'Prefix' => '.jpg',
+                'Status' => 'Enabled',
+                
+            ],
+            
+        ],
+    ],
+]);
+
+
 $sql="INSERT INTO MP1 (uname,email,phoneforSMS,RawS3URL,FinishedS3URL,jpegfilename,state,DateTime) VALUES ('$uname','$email','$phoneforSMS','$RawS3URL','$FinishedS3URL','$jpegfilename',$state,'$DateTime')";
 if (!mysqli_query($link,$sql))
 {
