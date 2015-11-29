@@ -22,11 +22,15 @@
         width: 420px
       }
     }
+.MyImage
+{
+border-style:2px inline;
+}
 
    </style>
 </head>
-<body>
-<h4 style="text-align:center;"><i><b>Image Gallery</b></i></h4>
+<body bgcolor="#FBCEB1">
+<marquee><h4 style="text-align:center;"><i><b>Image Gallery</b></i></h4></marquee>
 <hr>
 <div class="container">
     <div id="slides"> 
@@ -83,8 +87,8 @@ $link->real_query("SELECT * FROM MP1 where email='$sessionvar'");
 $res = $link->use_result();
 #echo "Result set order...\n";
 while ($row = $res->fetch_assoc()) {
-    echo "<img src =\" " . $row['RawS3URL'] . "\" />";
-echo "<div><img src =\" " . $row['FinishedS3URL'] . "\" /></div>";
+    echo "<img class='MyImage' src =\" " . $row['RawS3URL'] . "\" />";
+echo "<div><img class='MyImage' src =\" " . $row['FinishedS3URL'] . "\" /></div>";
 # echo $row['ID'] . "Email: " . $row['email'];
 }
 }
