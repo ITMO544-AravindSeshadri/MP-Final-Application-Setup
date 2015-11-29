@@ -3,10 +3,18 @@
 <html>
 <head><title>My Page</title>
 <meta charset="utf-8">
+<style>
+#MyForm
+{
+text-align:center;
+border-style: 2px outline;
+background-color:#FFCBA4;
+}
+</style>
 </head>
-<body>
-<h2>Input Form</h2>
-<form enctype="multipart/form-data" action="submit.php" method="POST">
+<body bgcolor="#96C8A2">
+<h2 style="text-align:center;">Input Form</h2>
+<form id="MyForm" enctype="multipart/form-data" action="submit.php" method="POST">
 Enter Email: <input type="email" name="useremail"><br>
 Enter Phone Number: <input type="phone" name="phone"><br>
 <input type="hidden" name="MAX_FILE_SIZE" value="3000000"><br>
