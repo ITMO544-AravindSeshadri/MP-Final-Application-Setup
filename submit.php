@@ -10,7 +10,7 @@ $uploaddir = '/tmp/';
 $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
 $ftype=$_FILES['userfile']['type'];
 $filename=$_FILES['userfile']['name'];
-$_SESSION["mailid"] = $_POST['useremail'];
+$_SESSION["mailid"] = $_POST['email'];
 echo '<pre>';
 if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
     echo "File is valid, and was successfully uploaded.\n";
