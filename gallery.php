@@ -24,7 +24,7 @@
     }
 .MyImage
 {
-border-style:2px inline;
+border-style:inline;
 }
 
    </style>
@@ -73,7 +73,7 @@ $link->real_query("SELECT * FROM MP1");
 $res = $link->use_result();
 #echo "Result set order...\n";
 while ($row = $res->fetch_assoc()) {
-    echo "<img src =\" " . $row['RawS3URL'] . "\" />";
+    echo "<img class='MyImage' src =\" " . $row['RawS3URL'] . "\" />";
 # echo $row['ID'] . "Email: " . $row['email'];
 }
 $link->close();
@@ -88,7 +88,7 @@ $res = $link->use_result();
 #echo "Result set order...\n";
 while ($row = $res->fetch_assoc()) {
     echo "<img class='MyImage' src =\" " . $row['RawS3URL'] . "\" />";
-echo "<div><img class='MyImage' src =\" " . $row['FinishedS3URL'] . "\" /></div>";
+echo "<div class='MyImage'><img src =\" " . $row['FinishedS3URL'] . "\" /></div>";
 # echo $row['ID'] . "Email: " . $row['email'];
 }
 }
