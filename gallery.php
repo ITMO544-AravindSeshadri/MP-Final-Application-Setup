@@ -38,12 +38,14 @@ session_start();
 $_SESSION["mailid"] = $_POST['email'];
 $sessionvar = $_SESSION["mailid"];
 #echo $sessionvar;
+
 require 'vendor/autoload.php';
 use Aws\Rds\RdsClient;
 $client = RdsClient::factory([
 'region'  => 'us-west-2',
     'version' => 'latest'
 ]);
+
 $result = $client->describeDBInstances([
     'DBInstanceIdentifier' => 'ITMO544AravindDbReadOnly',
 ]);
@@ -56,6 +58,7 @@ if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());
     exit();
 }
+
 if(strlen($sessionvar)==0)
 {
 $link->real_query("SELECT * FROM MP1");
