@@ -23,17 +23,21 @@
 	border-style:2px solid;
       }
     }
-
+body
+{
+ background-color:#BDB76B;
+}
    </style>
 </head>
-<body background-color="#B2FFFF">
-<marquee><h4 style="text-align:center;"><i><b>Image Gallery</b></i></h4></marquee>
+<body>
+<marquee><h2 style="text-align:center;"><i><b>Image Gallery</b></i></h2></marquee>
 <hr>
 <div class="container">
     <div id="slides"> 
 
 <?php
 session_start();
+$_SESSION["mailid"] = $_POST['email'];
 $sessionvar = $_SESSION["mailid"];
 #echo $sessionvar;
 
