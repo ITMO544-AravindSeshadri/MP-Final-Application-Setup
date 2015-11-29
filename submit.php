@@ -90,7 +90,7 @@ $Expiry = $s3->putBucketLifecycleConfiguration([
                     'Date' => '2016-01-02',
                 ],
                               
-                'Prefix' => '.jpg',
+                'Prefix' => ' ',
                 'Status' => 'Enabled',
                 
             ],
