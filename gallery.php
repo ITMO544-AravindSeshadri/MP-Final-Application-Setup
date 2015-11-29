@@ -19,7 +19,7 @@
     /* For smartphones */
     @media (max-width: 420px) {
       .container {
-        width: 420
+        width: 420px
       }
     }
 
