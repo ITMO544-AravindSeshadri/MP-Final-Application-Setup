@@ -14,38 +14,16 @@
       margin: 0 auto
     }
 
-    /* For tablets & smart phones */
-    @media (max-width: 767px) {
-      body {
-        padding-left: 20px;
-        padding-right: 20px;
-      }
-      .container {
-        width: auto
-      }
-    }
+   
 
     /* For smartphones */
-    @media (max-width: 480px) {
+    @media (max-width: 420px) {
       .container {
-        width: auto
+        width: 420
       }
     }
 
-    /* For smaller displays like laptops */
-    @media (min-width: 768px) and (max-width: 979px) {
-      .container {
-        width: 724px
-      }
-    }
-
-    /* For larger displays */
-    @media (min-width: 1200px) {
-      .container {
-        width: 1170px
-      }
-    }
-  </style>
+   </style>
 </head>
 <body>
 <h4 style="text-align:center;"><i><b>Image Gallery</b></i></h4>
@@ -106,6 +84,7 @@ $res = $link->use_result();
 #echo "Result set order...\n";
 while ($row = $res->fetch_assoc()) {
     echo "<img src =\" " . $row['RawS3URL'] . "\" />";
+echo "<img src =\" " . $row['FinishedS3URL'] . "\" />";
 # echo $row['ID'] . "Email: " . $row['email'];
 }
 }
