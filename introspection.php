@@ -5,13 +5,11 @@ $s3 = new Aws\S3\S3Client([
     'version' => 'latest',
         'region'  => 'us-west-2'
 ]);
-
 $dbbackup = uniqid("databasebackup",false);
 $result = $s3->createBucket([
     'ACL' => 'public-read',
     'Bucket' => $dbbackup,
 ]);
-
 $rds = new Aws\Rds\RdsClient([
     'version' => 'latest',
     'region'  => 'us-west-2'
