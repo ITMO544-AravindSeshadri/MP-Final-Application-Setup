@@ -29,7 +29,7 @@ border-style:inline;
 
    </style>
 </head>
-<body bgcolor="#FBCEB1">
+<body bgcolor="#B2FFFF">
 <marquee><h4 style="text-align:center;"><i><b>Image Gallery</b></i></h4></marquee>
 <hr>
 <div class="container">
