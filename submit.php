@@ -25,13 +25,11 @@ $s3 = new Aws\S3\S3Client([
         'region'  => 'us-west-2'
 ]);
 $bucket = uniqid("aravindbuck3",false);
-
 # AWS PHP SDK version 3 create bucket
 $result = $s3->createBucket([
     'ACL' => 'public-read',
     'Bucket' => $bucket,
 ]); 
-
 $result = $s3->putObject([
     'ACL' => 'public-read',
     'Bucket' => $bucket,
@@ -50,7 +48,6 @@ $result = $rds->describeDBInstances([
  $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 echo $endpoint;
 $link = mysqli_connect($endpoint,"aravind","password","ITMO544AravindDb") or die("Error " . mysqli_error($link));
-
 $uname = "Aravind";
 $email = $_POST['useremail'];
 $phoneforSMS = $_POST['phone'];
@@ -59,7 +56,6 @@ $FinishedS3URL = "none";
 $jpegfilename = basename($_FILES['userfile']['name']);
 $state = 0;
 $DateTime = date("Y-m-d H:i:s");
-
 $srcimage = $uploaddir . $filename;
 #echo $srcimage;
 #echo $ftype;
@@ -71,7 +67,6 @@ $resimagename = uniqid("ResultImage");
 $resimage = "$resimagename." . $extension;
 #echo $resimage;
 $img->writeImage($uploaddir . $resimage);
-
 $result = $s3->putObject([
     'ACL' => 'public-read',
     'Bucket' => $bucket,
@@ -80,7 +75,6 @@ $result = $s3->putObject([
     ]);
 $FinishedS3URL = $result['ObjectURL'];
 #echo $FinishedS3URL;
-
 $Expiry = $s3->putBucketLifecycleConfiguration([
     'Bucket' => $bucket,
     'LifecycleConfiguration' => [
@@ -98,8 +92,6 @@ $Expiry = $s3->putBucketLifecycleConfiguration([
         ],
     ],
 ]);
-
-
 $sql="INSERT INTO MP1 (uname,email,phoneforSMS,RawS3URL,FinishedS3URL,jpegfilename,state,DateTime) VALUES ('$uname','$email','$phoneforSMS','$RawS3URL','$FinishedS3URL','$jpegfilename',$state,'$DateTime')";
 if (!mysqli_query($link,$sql))
 {
