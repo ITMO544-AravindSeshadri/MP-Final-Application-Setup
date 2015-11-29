@@ -84,7 +84,7 @@ $res = $link->use_result();
 #echo "Result set order...\n";
 while ($row = $res->fetch_assoc()) {
     echo "<img src =\" " . $row['RawS3URL'] . "\" />";
-echo "<img src =\" " . $row['FinishedS3URL'] . "\" />";
+echo "<div><img src =\" " . $row['FinishedS3URL'] . "\" /></div>";
 # echo $row['ID'] . "Email: " . $row['email'];
 }
 }
